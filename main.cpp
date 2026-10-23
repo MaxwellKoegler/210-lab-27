@@ -1,35 +1,36 @@
 #include <iostream>
 #include <map>
-#include <vector>
+#include <tuple>
 using namespace std;
 
 int main() {
     // declarations
-    map<string, vector<string>> villagerColors;
+    map<string, tuple<int, string, string>> villagerColors;
 
     // insert elements into the map
     // note how the right-hand side of the assignment are the vector elements
-    villagerColors["Audie"] = {"Orange", "Yellow", "Red"};
-    villagerColors["Raymond"] = {"Black", "Gray", "White"};
-    villagerColors.insert({"Marshal", {"Blue", "White", "Black"}});
+    villagerColors["Audie"] = make_tuple(5, "Wolf", "Foxtrot");
+    villagerColors["Raymond"] = make_tuple(8, "Cat", "Nice fit");
+    villagerColors.insert({"Marshal", make_tuple(7, "Squirrel", "Sulky")});
 
     // access the map using a range-based for loop
-    cout << "Villagers and their favorite colors (range-based for loop):" << endl;
+    cout << "Villagers: " << endl;
     for (auto pair : villagerColors) {
         cout << pair.first << ": ";
-        for (auto color : pair.second)
-            cout << color << " ";
+        cout << get<0>(pair.second) << ", ";
+        cout << get<1>(pair.second) << ", ";
+        cout << get<2>(pair.second) << ", ";
         cout << endl;
     }
 
     // access the map using iterators
-    cout << "\nVillagers and their favorite colors (iterators):" << endl;
-    for (map<string, vector<string>>::iterator it = villagerColors.begin(); 
-                                               it != villagerColors.end(); ++it) {
+    cout << "\nVillagers:" << endl;
+    for (map<string, tuple<int,string,string>>::iterator it = villagerColors.begin(); 
+            it != villagerColors.end(); ++it) {
         cout << it->first << ": ";
-        for (auto color : it->second) {
-            cout << color << " ";
-        }
+        cout << get<0>(it->second) << ", ";
+        cout << get<1>(it->second) << ", ";
+        cout << get<2>(it->second);
         cout << endl;
     }
 
