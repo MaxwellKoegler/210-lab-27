@@ -13,8 +13,12 @@ int main() {
     v["Raymond"] = make_tuple(8, "Cat", "Nice fit");
     v.insert({"Marshal", make_tuple(7, "Squirrel", "Sulky")});
 
-    int c = 0;
-    int s;
+
+    int c;
+    int f;
+    string s;
+    string sp;
+    string ca;
     while(c != 4){
         cout << endl;
         cout << "1. Increase Friendship" << endl;
@@ -24,9 +28,29 @@ int main() {
         cout << "Enter choice: ";
         cin >> c;
 
-        if(c == 1 || c == 2) {
-            
+        if (c >= 1 && c <= 3) {
+            cout << "Villager name: ";
+            cin >> s;
+
+            auto it = v.find(s);
+
+            if (it == v.end())
+                cout << "Not found." << endl;
+            else if (c == 1 && get<0>(it->second) < 10)
+                get<0>(it->second)++;
+            else if (c == 2 && get<0>(it->second) > 0)
+                get<0>(it->second)--;
+
+            if (it != v.end() && c == 3)
+                cout << it->first << " [" << get<0>(it->second) << ", " << get<1>(it->second) << ", "<< get<2>(it->second) << "]" << endl;
+
+            if (it != v.end() && c != 3) {
+                cout << "Villager details:" << endl;
+                for (auto p : v)
+                    cout << p.first << " [" << get<0>(p.second)<< ", " << get<1>(p.second) << ", "<< get<2>(p.second) << "]" << endl;
+            }
         }
+
         
     }
 
